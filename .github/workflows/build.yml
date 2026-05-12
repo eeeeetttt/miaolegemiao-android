@@ -17,12 +17,10 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: gradle
     
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-    
-    - name: Accept Android SDK License
-      run: yes | sdkmanager --licenses || true
     
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
@@ -30,8 +28,14 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug
     
+    - name: Rename APK with date
+      run: |
+        DATE=$(date +%Y%m%d)
+        mv app/build/outputs/apk/debug/app-debug.apk MiaoLeGeMiao_$DATE.apk || \
+        mv app/build/outputs/apk/debug/*.apk MiaoLeGeMiao_$DATE.apk
+    
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: miaolegemiao-app
-        path: app/build/outputs/apk/debug/*.apk
+        name: MiaoLeGeMiao-APK
+        path: MiaoLeGeMiao_*.apk
