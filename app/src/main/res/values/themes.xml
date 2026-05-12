@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MiaoLeGeMiao" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#d4a43a</item>
+        <item name="colorPrimaryVariant">#b08928</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="android:statusBarColor">#d4a43a</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>
