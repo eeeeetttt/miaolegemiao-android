@@ -17,30 +17,18 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
     
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
     
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew || true
+      run: chmod +x gradlew
     
     - name: Build Debug APK
-      run: |
-        cd app
-        ../gradlew assembleDebug || gradle assembleDebug
+      run: ./gradlew assembleDebug
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: miaolegemiao-app
         path: app/build/outputs/apk/debug/*.apk
-    
-    - name: Create Release
-      if: github.event_name == 'workflow_dispatch'
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: v1.0.0
-        files: app/build/outputs/apk/debug/*.apk
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
